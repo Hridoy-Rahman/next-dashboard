@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from "./sidebar.module.css";
 import {
   MdDashboard,
@@ -81,10 +82,19 @@ const menuItems = [
 const Sidebar = () => {
     return (
         <div className={styles.container}>
+            <div className='flex gap-6 items-center mb-6'>
+                <Image className='rounded-full' src="/images.png" 
+                alt='user image'
+                width="50" height="50"></Image>
+                <div>
+                    <h1 className='text-lg'>Jhon Doe</h1>
+                    <h1 className='text-sm'>Admin</h1>
+                </div>
+            </div>
             <ul>
                 {menuItems.map((cat)=>(
-                    <li key={cat.title}>
-                    <span className={styles.cat}>{cat.title}
+                    <li className='mb-4 ' key={cat.title}>
+                    <span className={`${styles.cat} text-gray-300`}>{cat.title}
                     </span>
                     {cat.list.map((item)=>(
                         <MenuLink item ={item} key={item.title}/>
