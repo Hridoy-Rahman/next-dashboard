@@ -102,6 +102,9 @@ const Sidebar = () => {
                     </li>
                 ))}
             </ul>
+            <button className='flex items-center gap-6 text-xl p-2 hover:bg-[#384d7e] rounded-lg w-full'>
+              <MdLogout size={20}/>
+              Logout</button>
         </div>
     );
 };
