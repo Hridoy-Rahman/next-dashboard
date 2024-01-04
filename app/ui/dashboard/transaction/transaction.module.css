@@ -1,0 +1,13 @@
+.table{
+    width: 100%;
+}
+.table td{
+    padding: 10px;
+}
+
+.status{
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
