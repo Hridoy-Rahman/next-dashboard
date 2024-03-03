@@ -4,6 +4,8 @@ import React from "react";
 import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
+import View from "@/app/ui/dashboard/buttons/view";
+import Delete from "@/app/ui/dashboard/buttons/delete";
 
 const UsersPage = () => {
   return (
@@ -45,13 +47,9 @@ const UsersPage = () => {
             <td>Active</td>
             <td className="flex gap-2">
               <Link href="/">
-                <button className={`${styles.button} ${styles.view}`}>
-                  View
-                </button>
+                <View/>
               </Link>
-              <button className={`${styles.button} ${styles.delete}`}>
-                Delete
-              </button>
+              <Delete/>
             </td>
           </tr>
         </tbody>
