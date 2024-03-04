@@ -1,0 +1,51 @@
+.container{
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+}
+.user{
+    flex: 1;
+    padding: 20px;
+    background-color: var(--bgSoft);
+    border-radius: 10px;
+    height: max-content;
+    color: var(--textSoft);
+
+}
+
+.info{
+    flex: 3;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+}
+.form input,.form textarea,.form select{
+    padding: 10px;
+    background-color: transparent;
+    color: var(--text);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+}
+
+.form input ,.form select{
+    width: 100%;
+}
+
+.form textarea{
+    width: 100%;
+}
+.form button{
+    background-color: teal;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+.form option{
+    background-color: var(--bgSoft);
+}
+.form label{
+    font-size: 12px;
+}
+
