@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '@/app/ui/dashboard/buttons/buttons.module.css';
 
 const Button = ({ buttonType, customClass,name }) => {
-    const buttonClassName = `${styles.button} ${customClass}`;
 
     return (
         <div>
-            <button type={buttonType} className={buttonClassName}>{name}</button>
+            <button type={buttonType} className={customClass}>{name}</button>
         </div>
     );
 };

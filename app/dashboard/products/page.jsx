@@ -48,13 +48,13 @@ const UsersPage = () => {
               <Link href="/dashboard/users/test">
                 <Button
                   buttonType="button"
-                  customClass="bg-teal-500"
+                  customClass="bg-teal-500 p-1 rounded-md"
                   name="View"
                 />
               </Link>
               <Button
                 buttonType="button"
-                customClass="bg-red-600"
+                customClass="bg-red-600 p-1 rounded-md"
                 name="Delete"
               />
             </td>

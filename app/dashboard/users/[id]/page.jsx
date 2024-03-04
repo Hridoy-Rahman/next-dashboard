@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/app/ui/dashboard/users/singleUser/singleUser.module.css";
 import React from "react";
+import Button from "@/app/ui/dashboard/buttons/button";
 
 const SingleUser = () => {
   return (
@@ -48,7 +49,11 @@ const SingleUser = () => {
             id="address"
             placeholder="Address"
           ></textarea>
-          <button>Update</button>
+          <Button
+                  buttonType="button"
+                  customClass="bg-teal-500 p-2 rounded-lg w-full"
+                  name="Update"
+                />
         </form>
       </div>
     </div>
