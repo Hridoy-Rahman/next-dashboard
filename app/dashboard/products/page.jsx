@@ -4,8 +4,7 @@ import React from "react";
 import styles from "@/app/ui/dashboard/products/products.module.css";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-import View from "@/app/ui/dashboard/buttons/view";
-import Delete from "@/app/ui/dashboard/buttons/delete";
+import Button from "@/app/ui/dashboard/buttons/button";
 
 const UsersPage = () => {
   return (
@@ -46,15 +45,23 @@ const UsersPage = () => {
             <td>03.03.2024</td>
             <td>32</td>
             <td className="flex gap-2">
-              <Link href="/">
-                <View/>
+              <Link href="/dashboard/users/test">
+                <Button
+                  buttonType="button"
+                  customClass="bg-teal-500"
+                  name="View"
+                />
               </Link>
-              <Delete/>
+              <Button
+                buttonType="button"
+                customClass="bg-red-600"
+                name="Delete"
+              />
             </td>
           </tr>
         </tbody>
       </table>
-      <Pagination/>
+      <Pagination />
     </div>
   );
 };
