@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/app/ui/dashboard/products/add/addProducts.module.css";
 import { addProduct } from "@/app/lib/action";
 
+
 const AddProducts = () => {
   return (
     <div className={styles.container}>

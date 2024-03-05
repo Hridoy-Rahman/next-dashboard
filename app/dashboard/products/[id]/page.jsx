@@ -2,39 +2,39 @@ import Image from "next/image";
 import styles from "@/app/ui/dashboard/products/singleProduct/singleProduct.module.css";
 import React from "react";
 import Button from "@/app/ui/dashboard/buttons/button";
+import { fetchProduct } from "@/app/lib/data";
+import { updateProduct } from "@/app/lib/action";
 
-const SingleProduct = () => {
+const SingleProduct = async ({ params }) => {
+  const { id } = params;
+  const product = await fetchProduct(id);
+
   return (
     <div className={styles.container}>
       <div className={styles.user}>
         <Image
           className="rounded-lg"
-          src="/noitem.jpg"
+          src={product.img || "/noitem.jpg"}
           alt="user image"
           width="300"
           height="300"
         ></Image>
-        Iphone
+        {product?.title}
       </div>
       <div className={styles.info}>
-        <form action="" className={styles.form}>
+        <form action={updateProduct} className={styles.form}>
+          <input type="hidden" name="id" value={product.id} />
           <label htmlFor="title">Title</label>
-          <input type="text" placeholder="Iphone" name="title" required />
+          <input type="text" placeholder={product.title} name="title" />
           <label htmlFor="price">Price</label>
-          <input type="number" placeholder="$12" name="price" required />
+          <input type="number" placeholder={`$${product.price}`} name="price" />
           <label htmlFor="stock">Stock</label>
-          <input
-            type="number"
-            placeholder="12"
-            name="stock"
-            required
-          />
+          <input type="number" placeholder={product.stock} name="stock" />
           <label htmlFor="color">Color</label>
-          <input type="text"l placeholder="red" name="color" required />
+          <input type="text" l placeholder={product?.color} name="color" />
           <label htmlFor="size">Size</label>
-          <input type="text"l placeholder="xl" name="size" required />
+          <input type="text" l placeholder={product?.size} name="size" />
 
-          
           <label htmlFor="category">Category</label>
           <select name="cat" id="cat">
             <option value="general">Choose a category</option>
@@ -46,13 +46,12 @@ const SingleProduct = () => {
           <textarea
             name="desc"
             id="desc"
-            placeholder="Description"
+            placeholder={product.description}
           ></textarea>
           <Button
-                  buttonType="button"
-                  customClass="bg-teal-500 p-2 rounded-lg w-full"
-                  name="Update"
-                />
+            customClass="bg-teal-500 p-2 rounded-lg w-full"
+            name="Update"
+          />
         </form>
       </div>
     </div>

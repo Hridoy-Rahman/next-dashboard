@@ -6,103 +6,149 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 
 export const addUser = async (formData) => {
-
-  const {
-    username,
-    email,
-    password: hashedPassword,
-    phone,
-    address,
-    isAdmin,
-    isActive,
-  } = Object.fromEntries(formData);
+  const { username, email, password, phone, address, isAdmin, isActive } =
+    Object.fromEntries(formData);
 
   try {
     connectToDB();
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       username,
       email,
-      password,
+      password: hashedPassword,
       phone,
       address,
-      isActive,
       isAdmin,
+      isActive,
     });
 
     await newUser.save();
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to create user");
+    throw new Error("Failed to create user!");
   }
+
   revalidatePath("/dashboard/users");
-redirect("/dashboard/users");
+  redirect("/dashboard/users");
 };
 
-
-
-
-export const addProduct = async (formData) => {
-  
-  const {
-    title,price,stock,desc,color,size
-  } = Object.fromEntries(formData);
+export const updateUser = async (formData) => {
+  const { id, username, email, password, phone, address, isAdmin, isActive } =
+    Object.fromEntries(formData);
 
   try {
     connectToDB();
-   
+
+    const updateFields = {
+      username,
+      email,
+      password,
+      phone,
+      address,
+      isAdmin,
+      isActive,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await User.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update user!");
+  }
+
+  revalidatePath("/dashboard/users");
+  redirect("/dashboard/users");
+};
+
+export const addProduct = async (formData) => {
+  const { title, desc, price, stock, color, size,category } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+
     const newProduct = new Product({
-        title,price,stock,desc,color,size
+      title,
+      desc,
+      price,
+      stock,
+      color,
+      size,
+      category
     });
 
     await newProduct.save();
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to create product");
+    throw new Error("Failed to create product!");
   }
 
   revalidatePath("/dashboard/products");
-redirect("/dashboard/products");
+  redirect("/dashboard/products");
 };
 
-
-export const deleteProduct = async (formData) => {
-  
-  const {
-   id
-  } = Object.fromEntries(formData);
+export const updateProduct = async (formData) => {
+  const { id, title, desc, price, stock, color, size } =
+    Object.fromEntries(formData);
 
   try {
     connectToDB();
-    await Product.findByIdAndDelete(id)
 
+    const updateFields = {
+      title,
+      desc,
+      price,
+      stock,
+      color,
+      size,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await Product.findByIdAndUpdate(id, updateFields);
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to delete product");
+    throw new Error("Failed to update product!");
   }
 
   revalidatePath("/dashboard/products");
+  redirect("/dashboard/products");
 };
-
 
 export const deleteUser = async (formData) => {
-  
-  const {
-   id
-  } = Object.fromEntries(formData);
+  const { id } = Object.fromEntries(formData);
 
   try {
     connectToDB();
-    await User.findByIdAndDelete(id)
-
+    await User.findByIdAndDelete(id);
   } catch (err) {
     console.log(err);
-    throw new Error("Failed to delete user");
+    throw new Error("Failed to delete user!");
   }
 
-  revalidatePath("/dashboard/users");
+  revalidatePath("/dashboard/products");
 };
 
+export const deleteProduct = async (formData) => {
+  const { id } = Object.fromEntries(formData);
 
+  try {
+    connectToDB();
+    await Product.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete product!");
+  }
+
+  revalidatePath("/dashboard/products");
+};

@@ -40,7 +40,7 @@ const ProductsPage = async ({ searchParams }) => {
                 <div className={styles.product}>
                   <Image
                     className="rounded-full"
-                    src="/noitem.jpg"
+                    src={product.img || "/noitem.jpg"}
                     alt="product image"
                     width="40"
                     height="40"
@@ -48,12 +48,12 @@ const ProductsPage = async ({ searchParams }) => {
                   {product.title}
                 </div>
               </td>
-              <td>{product.description}</td>
-              <td>{product.price}</td>
+              <td>{console.log(product.desc)}</td>
+              <td>${product.price}</td>
               <td>{product.createdAt.toString().slice(4,16)}</td>
               <td>{product.stock}</td>
               <td className="flex gap-2">
-                <Link href="/dashboard/products/test">
+                <Link href={`/dashboard/products/${product.id}`}>
                   <Button
                     buttonType="button"
                     customClass="bg-teal-500 p-1 rounded-md"
