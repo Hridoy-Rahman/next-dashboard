@@ -5,8 +5,15 @@ import styles from "@/app/ui/dashboard/products/products.module.css";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Button from "@/app/ui/dashboard/buttons/button";
+import { fetchProducts } from "@/app/lib/data";
+import { deleteProduct } from "@/app/lib/action";
 
-const UsersPage = () => {
+const ProductsPage = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  const { products, count } = await fetchProducts(q, page);
+  console.log(products)
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -27,43 +34,47 @@ const UsersPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className={styles.product}>
-                <Image
-                  className="rounded-full"
-                  src="/noitem.jpg"
-                  alt="product image"
-                  width="40"
-                  height="40"
-                ></Image>
-                iPhone 11
-              </div>
-            </td>
-            <td>Desc</td>
-            <td>$120.50</td>
-            <td>03.03.2024</td>
-            <td>32</td>
-            <td className="flex gap-2">
-              <Link href="/dashboard/products/test">
+          {products.map((product) => (
+            <tr key={product.id}>
+              <td>
+                <div className={styles.product}>
+                  <Image
+                    className="rounded-full"
+                    src="/noitem.jpg"
+                    alt="product image"
+                    width="40"
+                    height="40"
+                  ></Image>
+                  {product.title}
+                </div>
+              </td>
+              <td>{product.description}</td>
+              <td>{product.price}</td>
+              <td>{product.createdAt.toString().slice(4,16)}</td>
+              <td>{product.stock}</td>
+              <td className="flex gap-2">
+                <Link href="/dashboard/products/test">
+                  <Button
+                    buttonType="button"
+                    customClass="bg-teal-500 p-1 rounded-md"
+                    name="View"
+                  />
+                </Link>
+                <form action={deleteProduct}>
+                  <input type="hidden" name="id" value={product.id}/>
                 <Button
-                  buttonType="button"
-                  customClass="bg-teal-500 p-1 rounded-md"
-                  name="View"
+                  customClass="bg-red-600 p-1 rounded-md"
+                  name="Delete"
                 />
-              </Link>
-              <Button
-                buttonType="button"
-                customClass="bg-red-600 p-1 rounded-md"
-                name="Delete"
-              />
-            </td>
-          </tr>
+                </form>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 };
 
-export default UsersPage;
+export default ProductsPage;

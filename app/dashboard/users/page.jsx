@@ -6,6 +6,7 @@ import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Button from "@/app/ui/dashboard/buttons/button";
 import { fetchUsers } from "@/app/lib/data";
+import { deleteUser } from "@/app/lib/action";
 
 const UsersPage = async ({searchParams}) => {
   const q = searchParams?.q || "";
@@ -58,11 +59,13 @@ const UsersPage = async ({searchParams}) => {
                     name="View"
                   />
                 </Link>
-                <Button
-                  buttonType="button"
+               <form action={deleteUser}>
+                <input type="hidden" name="id" value={user.id}/>
+               <Button
                   customClass="bg-red-600 p-1 rounded-md"
                   name="Delete"
                 />
+               </form>
               </td>
             </tr>
           ))}
